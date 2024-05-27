@@ -283,3 +283,18 @@ This guide explains how to set up a private blockchain using Geth with Proof of 
 
 By following this guide, you will have set up a private blockchain on multiple Raspberry Pi devices using Docker and PoA. You will be able to interact with the blockchain, deploy smart contracts, and manage transactions effectively.
 ด้วยการทำตามคำแนะนำนี้ คุณจะตั้งค่าบล็อกเชนส่วนตัวบนอุปกรณ์ Raspberry Pi หลายเครื่องโดยใช้ Docker และ PoA คุณจะสามารถโต้ตอบกับบล็อกเชน ปรับใช้สัญญาอัจฉริยะ และจัดการธุรกรรมได้อย่างมีประสิทธิภาพ
+
+## …or create a new repository on the command line
+** echo "# poa-ethrapberrypi" >> README.md
+** git init
+** git add README.md
+** git commit -m "first commit"
+** git branch -M main
+** git remote add origin https://github.com/suradathb/poa-ethrapberrypi.git
+** git push -u origin main
+
+
+## …or push an existing repository from the command line
+** git remote add origin https://github.com/suradathb/poa-ethrapberrypi.git
+** git branch -M main
+** git push -u origin main
