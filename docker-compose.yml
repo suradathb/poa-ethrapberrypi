@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  geth:
+    image: ethereum/client-go:latest
+    volumes:
+      - ./data:/root/.ethereum
+      - ./genesis.json:/root/genesis.json
+    networks:
+      ethereum:
+    ports:
+      - "8545:8545"
+      - "30303:30303"
+    command: [
+      "--networkid", "15",
+      "--http", "--http.addr", "0.0.0.0", "--http.port", "8545", "--http.api", "personal,db,eth,net,web3",
+      "--allow-insecure-unlock",
+      "--datadir", "/root/.ethereum",
+      "--nodiscover",
+      "--mine",
+      "--miner.threads=1",
+      "--unlock", "<your_account_address>",
+      "--password", "/root/.ethereum/password.txt"
+    ]
+
+networks:
+  ethereum:
+    driver: bridge
