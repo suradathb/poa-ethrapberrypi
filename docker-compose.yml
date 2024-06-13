@@ -1,28 +1,29 @@
-version: '3.8'
+version: '3'
 
 services:
-  geth:
-    image: ethereum/client-go:latest
+  node1:
+    build: .
     volumes:
-      - ./data:/root/.ethereum
-      - ./genesis.json:/root/genesis.json
-    networks:
-      ethereum:
+      - ./node1:/root/.ethereum
     ports:
       - "8545:8545"
       - "30303:30303"
-    command: [
-      "--networkid", "15",
-      "--http", "--http.addr", "0.0.0.0", "--http.port", "8545", "--http.api", "personal,db,eth,net,web3",
-      "--allow-insecure-unlock",
-      "--datadir", "/root/.ethereum",
-      "--nodiscover",
-      "--mine",
-      "--miner.threads=1",
-      "--unlock", "<your_account_address>",
-      "--password", "/root/.ethereum/password.txt"
-    ]
+    command: --networkid 15 --nodiscover --rpc --rpcaddr 0.0.0.0 --rpcport 8545 --rpcapi db,eth,net,web3,personal --datadir /root/.ethereum --port 30303 --rpcvhosts="*"
 
-networks:
-  ethereum:
-    driver: bridge
+  node2:
+    build: .
+    volumes:
+      - ./node2:/root/.ethereum
+    ports:
+      - "8546:8545"
+      - "30304:30303"
+    command: --networkid 15 --nodiscover --rpc --rpcaddr 0.0.0.0 --rpcport 8545 --rpcapi db,eth,net,web3,personal --datadir /root/.ethereum --port 30303 --rpcvhosts="*"
+
+  node3:
+    build: .
+    volumes:
+      - ./node3:/root/.ethereum
+    ports:
+      - "8547:8545"
+      - "30305:30303"
+    command: --networkid 15 --nodiscover --rpc --rpcaddr 0.0.0.0 --rpcport 8545 --rpcapi db,eth,net,web3,personal --datadir /root/.ethereum --port 30303 --rpcvhosts="*"
