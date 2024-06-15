@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+  geth:
+    image: ethereum/client-go:stable
+    volumes:
+      - ./data:/root/.ethereum
+      - ./genesis.json:/root/genesis.json
+      - ./password.txt:/root/password.txt
+      - ./nodekey:/root/nodekey
+    networks:
+      - poa-network
+    ports:
+      - 8546:8546
+      - 30303:30303
+    command: [
+      "--datadir", "/root/.ethereum",
+      "--networkid", "1234",
+      "--nodiscover",
+      "--mine",
+      "--http",
+      "--http.addr", "0.0.0.0",
+      "--http.port", "8546",
+      "--http.corsdomain", "*",
+      "--http.vhosts", "*",
+      "--http.api", "admin,eth,net,web3,personal,txpool,miner",
+      "--allow-insecure-unlock",
+      "--unlock", "0",
+      "--password", "/root/password.txt",
+      "--nodekey", "/root/nodekey",
+      "--verbosity", "3"
+    ]
+networks:
+  poa-network:
+    driver: bridge
