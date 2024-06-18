@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 version: '3.7'
 
 services:
@@ -85,3 +86,34 @@ networks:
     ipam:
       config:
         - subnet: 172.16.254.0/28
+=======
+version: '3'
+
+services:
+  node1:
+    build: .
+    volumes:
+      - ./node1:/root/.ethereum
+    ports:
+      - "8545:8545"
+      - "30303:30303"
+    command: geth --networkid 1337 --nodiscover --http --http.addr 0.0.0.0 --http.port 8545 --http.api eth,web3,personal --datadir /root/.ethereum --port 30303 --http.corsdomain="*"
+
+  node2:
+    build: .
+    volumes:
+      - ./node2:/root/.ethereum
+    ports:
+      - "8546:8545"
+      - "30304:30303"
+    command: geth --networkid 1337 --nodiscover --http --http.addr 0.0.0.0 --http.port 8545 --http.api eth,web3,personal --datadir /root/.ethereum --port 30303 --http.corsdomain="*"
+
+  node3:
+    build: .
+    volumes:
+      - ./node3:/root/.ethereum
+    ports:
+      - "8547:8545"
+      - "30305:30303"
+    command: geth --networkid 1337 --nodiscover --http --http.addr 0.0.0.0 --http.port 8545 --http.api eth,web3,personal --datadir /root/.ethereum --port 30303 --http.corsdomain="*"
+>>>>>>> 4cab1687e3d62c30074766b9967e168731007998
