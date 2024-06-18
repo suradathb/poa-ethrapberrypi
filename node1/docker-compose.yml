@@ -27,30 +27,30 @@ services:
       priv-eth-net:
 
 
-  miner-2:
-    hostname: miner-2
-    env_file:
-      - .env
-    build:
-      context: .
-      args:
-        - ACCOUNT_PASSWORD=${ACCOUNT_PASSWORD}
-    command: --bootnodes="enode://be38e1c59dc97129542e42f6e605a770ffc2083ad3b79d08b9863c5f2116549856fb0fe61ab14eef1d6688d6779bad18d02838ad67f33baf8a5e8e19eebae81d@mybootnode:30303" --mine --miner.threads=1 --networkid=${NETWORK_ID} --netrestrict="172.16.254.0/28"
-    networks:
-      priv-eth-net:
+  # miner-2:
+  #   hostname: miner-2
+  #   env_file:
+  #     - .env
+  #   build:
+  #     context: .
+  #     args:
+  #       - ACCOUNT_PASSWORD=${ACCOUNT_PASSWORD}
+  #   command: --bootnodes="enode://be38e1c59dc97129542e42f6e605a770ffc2083ad3b79d08b9863c5f2116549856fb0fe61ab14eef1d6688d6779bad18d02838ad67f33baf8a5e8e19eebae81d@mybootnode:30303" --mine --miner.threads=1 --networkid=${NETWORK_ID} --netrestrict="172.16.254.0/28"
+  #   networks:
+  #     priv-eth-net:
 
 
-  miner-3:
-    hostname: miner-3
-    env_file:
-      - .env
-    build:
-      context: .
-      args:
-        - ACCOUNT_PASSWORD=${ACCOUNT_PASSWORD}
-    command: --bootnodes="enode://be38e1c59dc97129542e42f6e605a770ffc2083ad3b79d08b9863c5f2116549856fb0fe61ab14eef1d6688d6779bad18d02838ad67f33baf8a5e8e19eebae81d@mybootnode:30303" --mine --miner.threads=1 --networkid=${NETWORK_ID} --netrestrict="172.16.254.0/28"
-    networks:
-      priv-eth-net:
+  # miner-3:
+  #   hostname: miner-3
+  #   env_file:
+  #     - .env
+  #   build:
+  #     context: .
+  #     args:
+  #       - ACCOUNT_PASSWORD=${ACCOUNT_PASSWORD}
+  #   command: --bootnodes="enode://be38e1c59dc97129542e42f6e605a770ffc2083ad3b79d08b9863c5f2116549856fb0fe61ab14eef1d6688d6779bad18d02838ad67f33baf8a5e8e19eebae81d@mybootnode:30303" --mine --miner.threads=1 --networkid=${NETWORK_ID} --netrestrict="172.16.254.0/28"
+  #   networks:
+  #     priv-eth-net:
 
 
   # miner-4:
