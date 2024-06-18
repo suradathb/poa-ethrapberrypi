@@ -1,28 +1,87 @@
-version: '3.8'
+version: '3.7'
 
 services:
-  geth:
-    image: ethereum/client-go:latest
-    volumes:
-      - ./data:/root/.ethereum
-      - ./genesis.json:/root/genesis.json
+  mybootnode:
+    hostname: mybootnode
+    env_file:
+      - .env
+    build:
+      context: .
+      args:
+        - ACCOUNT_PASSWORD=${ACCOUNT_PASSWORD}
+    command: --nodekeyhex="5d9705c9ef0983310a54739943298697507270a44ee2757507ea91bfccb71907" --nodiscover --ipcdisable --networkid=${NETWORK_ID} --netrestrict="172.16.254.0/28"
     networks:
-      ethereum:
-    ports:
-      - "8545:8545"
-      - "30303:30303"
-    command: [
-      "--networkid", "15",
-      "--http", "--http.addr", "0.0.0.0", "--http.port", "8545", "--http.api", "personal,db,eth,net,web3",
-      "--allow-insecure-unlock",
-      "--datadir", "/root/.ethereum",
-      "--nodiscover",
-      "--mine",
-      "--miner.threads=1",
-      "--unlock", "<your_account_address>",
-      "--password", "/root/.ethereum/password.txt"
-    ]
+      priv-eth-net:
+
+
+  miner-1:
+    hostname: miner-1
+    env_file:
+      - .env
+    build:
+      context: .
+      args:
+        - ACCOUNT_PASSWORD=${ACCOUNT_PASSWORD}
+    command: --bootnodes="enode://be38e1c59dc97129542e42f6e605a770ffc2083ad3b79d08b9863c5f2116549856fb0fe61ab14eef1d6688d6779bad18d02838ad67f33baf8a5e8e19eebae81d@mybootnode:30303" --mine --miner.threads=1 --networkid=${NETWORK_ID} --netrestrict="172.16.254.0/28"
+    networks:
+      priv-eth-net:
+
+
+  miner-2:
+    hostname: miner-2
+    env_file:
+      - .env
+    build:
+      context: .
+      args:
+        - ACCOUNT_PASSWORD=${ACCOUNT_PASSWORD}
+    command: --bootnodes="enode://be38e1c59dc97129542e42f6e605a770ffc2083ad3b79d08b9863c5f2116549856fb0fe61ab14eef1d6688d6779bad18d02838ad67f33baf8a5e8e19eebae81d@mybootnode:30303" --mine --miner.threads=1 --networkid=${NETWORK_ID} --netrestrict="172.16.254.0/28"
+    networks:
+      priv-eth-net:
+
+
+  miner-3:
+    hostname: miner-3
+    env_file:
+      - .env
+    build:
+      context: .
+      args:
+        - ACCOUNT_PASSWORD=${ACCOUNT_PASSWORD}
+    command: --bootnodes="enode://be38e1c59dc97129542e42f6e605a770ffc2083ad3b79d08b9863c5f2116549856fb0fe61ab14eef1d6688d6779bad18d02838ad67f33baf8a5e8e19eebae81d@mybootnode:30303" --mine --miner.threads=1 --networkid=${NETWORK_ID} --netrestrict="172.16.254.0/28"
+    networks:
+      priv-eth-net:
+
+
+  # miner-4:
+  #   hostname: miner-4
+  #   env_file:
+  #     - .env
+  #   build:
+  #     context: .
+  #     args:
+  #       - ACCOUNT_PASSWORD=${ACCOUNT_PASSWORD}
+  #   command: --bootnodes="enode://be38e1c59dc97129542e42f6e605a770ffc2083ad3b79d08b9863c5f2116549856fb0fe61ab14eef1d6688d6779bad18d02838ad67f33baf8a5e8e19eebae81d@mybootnode:30303" --mine --miner.threads=1 --networkid=${NETWORK_ID} --netrestrict="172.16.254.0/28"
+  #   networks:
+  #     priv-eth-net:
+
+
+  # miner-5:
+  #   hostname: miner-5
+  #   env_file:
+  #     - .env
+  #   build:
+  #     context: .
+  #     args:
+  #       - ACCOUNT_PASSWORD=${ACCOUNT_PASSWORD}
+  #   command: --bootnodes="enode://be38e1c59dc97129542e42f6e605a770ffc2083ad3b79d08b9863c5f2116549856fb0fe61ab14eef1d6688d6779bad18d02838ad67f33baf8a5e8e19eebae81d@mybootnode:30303" --mine --miner.threads=1 --networkid=${NETWORK_ID} --netrestrict="172.16.254.0/28"
+  #   networks:
+  #     priv-eth-net:
+
 
 networks:
-  ethereum:
+  priv-eth-net:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.254.0/28

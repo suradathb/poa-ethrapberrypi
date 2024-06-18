@@ -302,3 +302,21 @@ git remote add origin https://github.com/suradathb/poa-ethrapberrypi.git
 git branch -M main
 git push -u origin main
 ```
+
+## Setup New Code
+```javascript
+bootnode -genkey bootnode.key
+bootnode -nodekeyhex <nodekeyhex-from-file> -writeaddress
+
+Ex : 
+bootnode -nodekeyhex 37d571faed3af03f8302e1ddb940ca2f13010a1acf9443ba1507b93e5b36fcbd -writeaddress
+749bac3705e7d0c92c27ace288d911cf2798538edcb46a3f9d058093c80c3533be6668df41ecb1174dd9cf22c39b6c5ed7e0f1aa53ef7928679b506f80b0268e
+
+enode://ENODE-value@IP:PORT
+
+# Build images
+docker-compose build
+
+# Once build is over, let's run
+docker-compose up
+```
